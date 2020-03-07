@@ -12,11 +12,13 @@ const DogSchema = new mongoose.Schema({
 
     breed: {
         type: String,
+        trim: true,
         required: true,
     },
 
     age: {
         type: Number,
+        min: 0,
         required: true,
     },
 
@@ -26,12 +28,16 @@ const DogSchema = new mongoose.Schema({
     },
 });
 
-CatSchema.statics.findByName = (name, callback) => {
+DogSchema.statics.sayName = (dog) => {
+    console.log(dog.name);
+}
+
+DogSchema.statics.findByName = (name, callback) => {
     const search = {
         name,
     };
 
-    return CatModel.findOne(search, callback);
+    return DogModel.findOne(search, callback);
 };
 
 DogModel = mongoose.model("Dog", DogSchema);
