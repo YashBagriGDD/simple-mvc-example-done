@@ -107,28 +107,27 @@ const hostPage2 = (req, res) => {
 // controller functions in Express receive the full HTTP request
 // and a pre-filled out response object to send
 const hostPage3 = (req, res) => {
-    // res.render takes a name of a page to render.
-    // These must be in the folder you specified as views in your main app.js file
-    // Additionally, you don't need .jade because you registered the file type
-    // in the app.js as jade. Calling res.render('index')
-    // actually calls index.jade. A second parameter of JSON can be passed
-    // into the jade to be used as variables with #{varName}
+  // res.render takes a name of a page to render.
+  // These must be in the folder you specified as views in your main app.js file
+  // Additionally, you don't need .jade because you registered the file type
+  // in the app.js as jade. Calling res.render('index')
+  // actually calls index.jade. A second parameter of JSON can be passed
+  // into the jade to be used as variables with #{varName}
   res.render('page3');
 };
 
 const hostPage4 = (req, res) => {
   const callback = (err, docs) => {
-    if(err) {
-      return res.json({ err }); //if err return it
+    if (err) {
+      return res.json({ err }); // if err return it
     }
 
-    //return success
-    res.render('page4', {dogs: docs});
+    // return success
+    return res.render('page4', { dogs: docs });
   };
 
   readAllDogs(req, res, callback);
-  
-}
+};
 
 // function to handle get request to send the name
 // controller functions in Express receive the full HTTP request
@@ -155,7 +154,7 @@ const setName = (req, res) => {
     return res.status(400).json({ error: 'name, breed, and age are all required' });
   }
 
-  
+
   const dogData = {
     name: req.body.name,
     breed: req.body.breed,
@@ -217,7 +216,7 @@ const searchName = (req, res) => {
       return res.json({ error: 'No dogs found' });
     }
 
-    //Increase the age of the dog then update it
+    // Increase the age of the dog then update it
     const temp = doc;
     temp.age++;
 
@@ -225,7 +224,7 @@ const searchName = (req, res) => {
 
     // if a match, send the match back
     return savePromise.then(() => res.json({ name: temp.name, breed: temp.breed, age: temp.age }))
-    .catch(error => res.json({ error }));
+      .catch((error) => res.json({ error }));
   });
 };
 
