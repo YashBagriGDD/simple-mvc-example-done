@@ -225,7 +225,7 @@ const searchName = (req, res) => {
 
     // if a match, send the match back
     return savePromise.then(() => res.json({ name: temp.name, breed: temp.breed, age: temp.age }))
-    .catch(err => res.json({ err }));
+    .catch(error => res.json({ error }));
   });
 };
 
